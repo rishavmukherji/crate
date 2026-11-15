@@ -1,0 +1,96 @@
+name: Crate
+configFiles:
+  Debug: Config/Local.xcconfig
+  Release: Config/Local.xcconfig
+options:
+  createIntermediateGroups: true
+  deploymentTarget:
+    iOS: "17.0"
+    macOS: "14.0"
+    watchOS: "10.0"
+settings:
+  base:
+    CODE_SIGN_STYLE: Automatic
+    SWIFT_VERSION: "5.0"
+    MARKETING_VERSION: "1.0"
+    ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+    CURRENT_PROJECT_VERSION: "1"
+targets:
+  Crate:
+    type: application
+    platform: iOS
+    sources:
+      - Sources/Core
+      - Sources/Player
+      - Sources/Link
+      - Sources/iOS
+      - Resources/iOS
+    dependencies:
+      - target: CrateWatch
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(CRATE_BUNDLE_ID_PREFIX).Crate
+        PRODUCT_NAME: Crate
+        TARGETED_DEVICE_FAMILY: "1,2"
+    info:
+      path: Config/iOS-Info.plist
+      properties:
+        CFBundleDisplayName: Crate
+        NSAppleMusicUsageDescription: Crate shows your music library as album covers and plays albums through the Music app.
+        UILaunchScreen: {}
+        UIApplicationSceneManifest:
+          UIApplicationSupportsMultipleScenes: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    scheme: {}
+
+  CrateMac:
+    type: application
+    platform: macOS
+    sources:
+      - Sources/Core
+      - Sources/Player
+      - Sources/macOS
+      - Resources/macOS
+    dependencies:
+      - sdk: iTunesLibrary.framework
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(CRATE_BUNDLE_ID_PREFIX).Crate
+        PRODUCT_NAME: Crate
+        ENABLE_HARDENED_RUNTIME: NO
+        CODE_SIGN_IDENTITY: Apple Development
+    info:
+      path: Config/macOS-Info.plist
+      properties:
+        LSApplicationCategoryType: public.app-category.music
+        NSAppleMusicUsageDescription: Crate reads your Music library to show your albums as covers.
+        NSAppleEventsUsageDescription: Crate asks the Music app to play the albums you pick.
+    scheme: {}
+
+  CrateWatch:
+    type: application
+    platform: watchOS
+    sources:
+      - Sources/Core
+      - Sources/Link
+      - Sources/watchOS
+      - Resources/watchOS
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: $(CRATE_BUNDLE_ID_PREFIX).Crate.watchkitapp
+        SKIP_INSTALL: YES
+    info:
+      path: Config/watchOS-Info.plist
+      properties:
+        CFBundleDisplayName: Crate
+        WKApplication: true
+        WKCompanionAppBundleIdentifier: $(CRATE_BUNDLE_ID_PREFIX).Crate
+    scheme: {}

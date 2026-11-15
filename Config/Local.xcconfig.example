@@ -1,0 +1,7 @@
+// Copy to Config/Local.xcconfig (git ignores it) and fill in your own values, then run `xcodegen generate`.
+
+// Your Apple developer team ID: Xcode › Settings › Accounts › your team, or developer.apple.com › Account › Membership.
+DEVELOPMENT_TEAM = ABCDE12345
+
+// Prefix for the app IDs. App IDs are unique across all Apple accounts, so use one you own, like com.yourname.
+CRATE_BUNDLE_ID_PREFIX = com.example
